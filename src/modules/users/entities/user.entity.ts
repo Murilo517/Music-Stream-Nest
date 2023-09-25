@@ -1,4 +1,4 @@
-import { Exclude } from "class-transformer/types/decorators";
+import { Exclude } from "class-transformer";
 import { randomUUID } from "crypto";
 
 export class User {
