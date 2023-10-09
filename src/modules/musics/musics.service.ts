@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { UpdateMusicDto } from './dto/update-music.dto';
+import { MusicsRepository } from './repositories/music.repository';
 
 @Injectable()
 export class MusicsService {
-  create(createMusicDto: CreateMusicDto) {
-    return 'This action adds a new music';
+  constructor(private musicRepository: MusicsRepository) {}
+  async create(createMusicDto: CreateMusicDto) {
+    const newMusic = await this.musicRepository.create(createMusicDto);
+    return newMusic;
   }
 
-  findAll() {
-    return `This action returns all musics`;
+  async findAll(group: string | undefined) {
+    return this.musicRepository.findAll(group);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} music`;
+  async findOne(id: string) {
+    const findMusic = await this.musicRepository.findOne(id);
+    return findMusic;
   }
 
   update(id: number, updateMusicDto: UpdateMusicDto) {
